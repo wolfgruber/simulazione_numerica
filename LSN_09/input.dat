@@ -1,0 +1,11 @@
+30
+900
+90
+500
+0
+
+    Read >> c;
+    Read >> g;
+    Read >> elite;
+    Read >> n;
+    Read >> circle; 1 -> yes, 0 -> no (square)

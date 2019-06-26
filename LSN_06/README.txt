@@ -1,0 +1,1 @@
+For compiling and running the exercise, execute the script 'esec06.sh'. Rise the flag '-s' to get the full solution. '-m' just computes the metropolis part, '-g' just the gibbs simulation. Rise '-p' to launch the jupiter notebook after the computation.

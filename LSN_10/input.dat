@@ -1,0 +1,13 @@
+30
+0
+1
+25
+0.095
+10000
+
+    Read >> c;
+    Read >> circle;
+    Read >> beta;
+    Read >> increment;
+    Read >> border;
+    Read >> nsteps;
