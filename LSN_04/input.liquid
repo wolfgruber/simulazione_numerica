@@ -1,0 +1,21 @@
+1.9
+108
+0.8
+2.5
+0.0005
+10000
+1000
+0
+
+
+  ReadInput >> temp;
+  ReadInput >> npart;
+  ReadInput >> rho;
+  ReadInput >> rcut;
+  ReadInput >> delta;
+  ReadInput >> nstep;
+  ReadInput >> iprint;
+  ReadInput >> restart; // (restart <= 0) --> restart with random velocity,
+                        // (1 > restart > 0) --> restart with vel. from velocity and temp from input.dat,
+                        // (restart >= 1) --> restart with vel. and temp from velocity
+
