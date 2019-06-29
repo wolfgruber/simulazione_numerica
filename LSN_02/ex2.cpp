@@ -85,7 +85,7 @@ int main (int argc, char *argv[]){
             if (i == 0) { cx[0][j] = 0, cx[1][j] = 0, cx[2][j] = 0; }
             // setting the origin of each walk equal to zero
             phi = rnd.Rannyu() * 2 * M_PI; // generating two random values for the two angles
-            theta = rnd.Rannyu() * M_PI;
+            theta = acos(1-2*rnd.Rannyu());
             cx[0][j] += a * sin(theta) * cos(phi); // computing the changes on the coordinates
             cx[1][j] += a * sin(theta) * cos(phi);
             cx[2][j] += a * cos(theta);
