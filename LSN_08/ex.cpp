@@ -16,19 +16,19 @@ double pi = 3.14159;
 double hbar = 1;
 double mass = 1;
 
-double psi(double x, double mu, double sigma) {
+double psi(double x, double mu, double sigma) { // the trial wave function
     double p = exp(-pow((x-mu),2)/(2*sigma*sigma)) + exp(-pow((x+mu),2)/(2*sigma*sigma));
     return p;
 }
 
-double V(double x) {
+double V(double x) { // the potential
     return pow(x,4) - 2.5 * pow(x,2);
 }
 
-double G(double x, double mu, double sigma) {
+double G(double x, double mu, double sigma) { // a function which returns the local energy
     double T, f, g, fp, gp, fpp;
     T = hbar/(2*mass);
-    f = pow((x-mu),2)/(2*sigma*sigma);
+    f = pow((x-mu),2)/(2*sigma*sigma); // substitution: psi(x) = exp( -f(x) ) + exp( -g(x) )
     g = pow((x+mu),2)/(2*sigma*sigma);
     fp = (x-mu)/(sigma*sigma);
     gp = (x+mu)/(sigma*sigma);
@@ -40,14 +40,14 @@ double G(double x, double mu, double sigma) {
     
 
 
-vector <double> Energy(double mu, double sigma) {
+vector <double> Energy(double mu, double sigma) { // function which computes the trial energy via monte carlo
 
-    Random rnd;
+    Random rnd; // defining and launching the random number generator
     rnd.launch();
 
-    ofstream out2("psi.dat");
+    ofstream out2("psi.dat"); // output of the wave function
 
-    int n = 40000, m = 1000, c = 0, k = 0, i = 0; // n = 1000000, m = 10000
+    int n = 40000, m = 1000, c = 0, k = 0, i = 0;
     int l = n/m, b = 0;
     double x;
     double xold;
@@ -55,33 +55,33 @@ vector <double> Energy(double mu, double sigma) {
     vector <double> Emean, rblock(2,0);
     double p, pold, mo;
 
-    mu = abs(mu);
+    mu = abs(mu); // setting mu and sigma to being always positive when used
     sigma = abs(sigma);
 
-    d = sigma + mu;
+    d = sigma + mu; // an approach to get a acceptance of 50%
 
-    xold = mu;
+    xold = mu; // setting the variables to an initial value
     pold = pow(psi(xold, mu, sigma),2);
     Esum = 0;
 
 
-    while ( c < n ) {
+    while ( c < n ) { // loop over n positive mc steps
         x = xold + (rnd.Rannyu()-0.5) * 2 * d;
         p = pow(psi(x, mu, sigma),2);
         
-        mo = min(1., p/pold);
+        mo = min(1., p/pold); // computing the transition probability
 
-        if ( mo > rnd.Rannyu() ) {
+        if ( mo > rnd.Rannyu() ) { // sampling x from psi(x)
             xold = x;
             pold = p;
             c++;
         }
 
-        Esum += G(xold, mu, sigma);
+        Esum += G(xold, mu, sigma); // summing the local energy
 
         k++;
 
-        if ( i % m == 0 && i != 0) {
+        if ( i % m == 0 && i != 0) { // computing the block average and error
             Emean.push_back(Esum);
             Esum = 0;
             Emean.at(b) /= double(m);
@@ -110,7 +110,7 @@ vector <double> Energy(double mu, double sigma) {
 }
 
 
-void plot() {
+void plot() { // going through a set of values for mu and sigma and computing the trial energy to plot it
     ofstream Write("plt.dat");
     double mu = 0.5, sigma = 0.35;
     int num = 30;
@@ -124,7 +124,7 @@ void plot() {
     Write.close();
 } 
 
-void min() {
+void min() { // looking for the minimal trial energy depending on mu and sigma with gradient descent to get an upper bound for the rest energy
     ifstream Read("input.dat");
     ofstream Write("min.dat");
     double mu, sigma;
@@ -139,7 +139,7 @@ void min() {
 
     for ( int i = 0; i < 50; i++) {
 
-        E = Energy(mu, sigma);
+        E = Energy(mu, sigma); // computing the trial energy and the derivatives with respect to mu, sigma
         nablas = (Energy(mu, sigma+ds).at(0) - Energy(mu, sigma-ds).at(0) )/(2*ds);
         nablam = (Energy(mu+dm, sigma).at(0) - Energy(mu-dm, sigma).at(0) )/(2*dm);
 
@@ -154,8 +154,8 @@ void min() {
 } 
 
 int main() {
-    //plot();
-    min();
+    //plot(); // executing the calcuation of the plot data
+    min(); // executing the gradient descent
 } 
             
        
