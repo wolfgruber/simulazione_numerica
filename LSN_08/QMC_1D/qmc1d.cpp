@@ -186,7 +186,7 @@ double variationalWaveFunction(double v)
 {
 	//return 1.0;
 	//return exp(-0.5*v*v);
-    double mu = 0, sigma = 0.5;
+    double mu = 0.8, sigma = 0.61;
     return exp( -pow( (v-mu), 2 ) / (2*sigma*sigma) ) + exp( -pow( (v+mu), 2 ) / (2*sigma*sigma) );
 }
 
@@ -194,7 +194,7 @@ double variationalWaveFunction_second(double v)
 {
 	//return 0;
 	//return v*v*exp(-0.5*v*v) - exp(-0.5*v*v);
-    double mu = 0, sigma = 0.5;
+    double mu = 0.8, sigma = 0.61;
     return exp( -pow( (v-mu), 2 ) / (2*sigma*sigma) ) * (v-mu)/(2*sigma) + exp( -pow( (v+mu), 2 ) / (2*sigma*sigma) ) * (v+mu)/(2*sigma);
 }
 
