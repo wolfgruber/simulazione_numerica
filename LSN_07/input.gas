@@ -4,7 +4,7 @@
 5.0
 0.2
 200
-100
+44
 
   ReadInput >> temp;
   ReadInput >> npart;
